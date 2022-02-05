@@ -7,14 +7,6 @@ galleryEl.insertAdjacentHTML('beforeend', makeRenderGallery(galleryItems));
 
 galleryEl.addEventListener('click', onGetOriginalImage);
 
-function onGetOriginalImage(e) {
-  e.preventDefault();
-  if (e.target.nodeName != 'IMG') {
-    return;
-  }
-  const largeUlrImage = e.target.dataset.source;
-  console.log(largeUlrImage);
-}
 function makeRenderGallery(gallery) {
   return gallery
     .map(({ preview, original, description }) => {
@@ -30,6 +22,37 @@ function makeRenderGallery(gallery) {
 </div>`;
     })
     .join('');
+}
+
+function onGetOriginalImage(e) {
+  e.preventDefault();
+  if (e.target.nodeName != 'IMG') {
+    return;
+  }
+
+  const imageUrl = e.target.dataset.source;
+  const imageAlt = e.target.alt;
+  const largeImage = `<img src="${imageUrl}" alt="${imageAlt}">`;
+  modalCreateLargeImage(largeImage);
+}
+
+function modalCreateLargeImage(largeImage) {
+  const options = {
+    onShow: () => {
+      window.addEventListener('keydown', onCloseModal);
+    },
+    onClose: () => {
+      window.removeEventListener('keydown', onCloseModal);
+    },
+  };
+
+  const instance = basicLightbox.create(largeImage, options);
+  instance.show();
+  function onCloseModal(e) {
+    if (e.code === 'Escape') {
+      instance.close();
+    }
+  }
 }
 
 console.log(galleryItems);
