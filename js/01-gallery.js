@@ -5,6 +5,16 @@ const galleryEl = document.querySelector('.gallery');
 
 galleryEl.insertAdjacentHTML('beforeend', makeRenderGallery(galleryItems));
 
+galleryEl.addEventListener('click', onGetOriginalImage);
+
+function onGetOriginalImage(e) {
+  e.preventDefault();
+  if (e.target.nodeName != 'IMG') {
+    return;
+  }
+  const largeUlrImage = e.target.dataset.source;
+  console.log(largeUlrImage);
+}
 function makeRenderGallery(gallery) {
   return gallery
     .map(({ preview, original, description }) => {
