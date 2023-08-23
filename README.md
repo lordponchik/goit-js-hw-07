@@ -81,6 +81,7 @@ Do this task in the `02-lightbox.html` and `02-lightbox.js` files. Break it down
 :ukraine:
 <details>
 <summary>Russian</summary>
+	
 # Критерии приема
 
 - Создан репозиторий `goit-js-hw-07`.
